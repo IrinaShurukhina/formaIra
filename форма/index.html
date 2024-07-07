@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Форма</title>
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+       <!-- <img src="img/Frame.png" alt=""> -->
+        <img class='flower' src="img/flower.png" alt="">
+        <h1>Авторизация</h1>
+
+        <form class='forma' name="form" action="" id="add-form"  onSubmit="return validateForm();">
+            
+            <input class=" input email" type="email" name="email" id="email" placeholder="Email или телефон" required>
+            <span id="email-status" class="status-icon"></span>
+            <input class=" input key" type="password" name="password" id="key" placeholder="Пароль" required>
+            <span id="password-status" class="status-icon"></span>
+            <button class="button">Войти</button>
+        </form>
+
+       
+        </div>
+    </div>
+ 
+  
+   
+
+<script>
+ 
+
+ function validateForm() {
+    const emailOrPhone = document.getElementById('email');
+    const password = document.getElementById('key');
+    const errorDiv = document.getElementById('error');
+
+    const isValidEmailOrPhone = checkEmailOrPhone(emailOrPhone.value);
+    const isValidPassword = checkPassword(password.value);
+
+    
+    errorDiv.style.display = 'none';
+    emailOrPhone.classList.remove('invalid');
+    emailOrPhone.classList.remove('valid');
+    password.classList.remove('invalid');
+    password.classList.remove('valid');
+
+    if (!isValidEmailOrPhone) {
+        emailOrPhone.classList.add('invalid');
+      
+        errorDiv.style.display = 'block';
+        errorDiv.innerText = 'Неправильный формат email или телефона';
+        return false;
+    } else {
+        emailOrPhone.classList.add('valid');
+        document.getElementById('email-status').innerHTML = '';
+    }
+
+    // Check password
+    if (!isValidPassword) {
+        password.classList.add('invalid');
+       
+        errorDiv.style.display = 'block';
+        return false;
+    } else {
+        password.classList.add('valid');
+        document.getElementById('password-status').innerHTML = '';
+    }
+
+    return true;
+}
+
+function checkEmailOrPhone(value) {
+   const phonePattern = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return phonePattern.test(value) || emailPattern.test(value);
+}
+
+function checkPassword(value) {
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+    return passwordPattern.test(value);
+}
+
+document.getElementById('email').addEventListener('input', function (e) {
+    const emailOrPhone = e.target;
+    emailOrPhone.classList.remove('invalid');
+    emailOrPhone.classList.remove('valid');
+    document.getElementById('email-status').innerHTML = '';
+
+    if (checkEmailOrPhone(emailOrPhone.value)) {
+        emailOrPhone.classList.add('valid');
+        document.getElementById('email-status').innerHTML = '';
+    } else {
+        emailOrPhone.classList.add('invalid');
+       
+    }
+});
+
+document.getElementById('key').addEventListener('input', function (e) {
+    const password = e.target;
+    password.classList.remove('invalid');
+    password.classList.remove('valid');
+    document.getElementById('password-status').innerHTML = '';
+
+    if (checkPassword(password.value)) {
+        password.classList.add('valid');
+        document.getElementById('password-status').innerHTML = '';
+    } else {
+        password.classList.add('invalid');
+        document.getElementById('password-status').innerHTML = 'Неправильный логин или пароль';
+    }
+});
+
+
+</script>
+<!-- https://github.com/IrinaShurukhina/formaIra.git -->
+</body>
+</html>
